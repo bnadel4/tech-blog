@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../../MVC_miniproj/28-Stu_Mini-Project/Develop/models');
+const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
   try {
@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log('userData', userData);
 
     if (!userData) {
       res
