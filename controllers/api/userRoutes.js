@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
   try {
     const userData = await User.create({
       username: req.body.username, 
@@ -53,11 +52,35 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post("/signup", async (req, res) => {
+  console.log('req.body', req.body);
+
+  try {
+    const userData = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+    });
+
+    console.log("Users auto-generated ID", userData.id);
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.sendStatus(200);
+    });
+  } catch (err) {
+    console.log("err", err);
+    res.status(400).json(err);
+  }
+});
+
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
+    res.redirect("/");
   } else {
     res.status(404).end();
   }
