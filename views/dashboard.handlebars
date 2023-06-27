@@ -1,0 +1,15 @@
+{{#each postData}}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{user.username}}</h6>
+    <p class="card-text">{{body}}</p>
+    <a href="#" class="card-link">Read more...</a> 
+    <a href="#" class="card-link">Add comment</a>
+  </div>
+</div>
+{{/each}}
+
+<a href="/createPost">+ New Blog Post</a>
+{{!-- <a href='/contact'>Contact</a> --}}
+{{!-- <script src="./js/dashboard.js"></script> --}}
